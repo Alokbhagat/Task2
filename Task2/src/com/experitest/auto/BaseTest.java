@@ -26,6 +26,11 @@ public class BaseTest {
 	
 	}
 
+	public void testFunction(){
+		
+		System.out.println("This is to test git commit");
+		
+	}
 	
 	protected String getProperty(String property, Properties props) throws FileNotFoundException, IOException {
 		if (System.getProperty(property) != null) {
