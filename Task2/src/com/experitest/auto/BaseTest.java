@@ -26,6 +26,10 @@ public class BaseTest {
 	
 	}
 
+	public void testFunction(){
+		System.out.println("This again test to see Sync betwen jenkin and eclipse");
+		
+	}
 	
 	
 	protected String getProperty(String property, Properties props) throws FileNotFoundException, IOException {
