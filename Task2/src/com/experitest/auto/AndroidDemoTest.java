@@ -30,6 +30,8 @@ public class AndroidDemoTest extends BaseTest {
 	
 	@Test
 	public void test(){
+		
+		driver.get("http://experitest.com");
 		// Enter the test code
 		//Adding a comments for test - demo 
 		//still no tes case added 
