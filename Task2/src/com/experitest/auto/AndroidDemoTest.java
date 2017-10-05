@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -16,16 +17,23 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
-
-
-
+import com.experitest.manager.api.ManagerPublisher;
+import com.experitest.manager.client.PManager;
+import com.experitest.manager.testng.ManagerTestNGListener;
+import org.testng.annotations.*;
+ 
+import java.io.File;
+import java.lang.reflect.Method;
+ 
+@Listeners(ManagerTestNGListener.class)
 public class AndroidDemoTest extends BaseTest {
 	protected AndroidDriver<AndroidElement> driver = null;
 	
 	@BeforeMethod
 	@Parameters("deviceQuery")
-	public void setUp(@Optional("@os='android'") String deviceQuery) throws Exception{
+	public void setUp(@Optional("@os='android'") String deviceQuery,Method method) throws Exception{
 		init(deviceQuery);
+		 managerPublisher = PManager.createManagerPublisher(method.getName());
 		// Init application / device capabilities
 		//dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.ExperiBank/.LoginActivity");
 		//dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
@@ -37,7 +45,7 @@ public class AndroidDemoTest extends BaseTest {
 	
 	@Test
 	public void webTest(){
-		
+		 managerPublisher.addProperty("team", "AloksTask2");		
 		// driver.executeScript("client:client.setDevice(\"adb:HTC One A9\")");
 		
 		  //driver.startActivity("Chrome:http://Experitest.com", "experitest.com");
@@ -59,10 +67,10 @@ public class AndroidDemoTest extends BaseTest {
 	
 	@Test
 	public void nativeTest(){	
-		
+		 managerPublisher.addProperty("team", "AloksTask2");		
 		 // driver.executeScript("client:client.setDevice(\"adb:HTC One A9\")");
 		  //driver.rotate(ScreenOrientation.PORTRAIT);
-		driver.unlockDevice();
+		  driver.unlockDevice();
 		  driver.installApp("cloud:com.experitest.ExperiBank/.LoginActivity");
 		  try{
 			  Thread.sleep(2000);
@@ -112,6 +120,7 @@ public class AndroidDemoTest extends BaseTest {
 
 	@AfterMethod
 	public void tearDown(){
+		managerPublisher.addReportFolder(new File("c:\\Users\\alok.bhagat\\git\\Task2"));
 		driver.quit();
 	}
 	
