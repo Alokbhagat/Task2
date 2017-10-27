@@ -8,11 +8,12 @@ import java.util.Properties;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import com.experitest.manager.api.ManagerPublisher;
+
 public class BaseTest {
 
 	protected DesiredCapabilities dc = new DesiredCapabilities();
 	protected Properties cloudProperties = new Properties();
-
 	public void init(String deviceQuery) throws Exception {
 		initCloudProperties();
 		dc.setCapability("deviceQuery", adhocDevice(deviceQuery));
@@ -23,6 +24,14 @@ public class BaseTest {
 		// In case your user is assign to a single project leave empty,
 		// otherwise please specify the project name
 		dc.setCapability("project", getProperty("project", cloudProperties));
+		dc.setCapability("stream", "AlokTask2");
+		dc.setCapability("build", 17);
+		// this is a must
+		
+		 
+		 
+		// access key
+		//System.setProperty("manager.accesskey", "mylongaccesskey");
 	
 	}
 
