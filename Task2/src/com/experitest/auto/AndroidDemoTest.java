@@ -38,23 +38,25 @@ public class AndroidDemoTest extends BaseTest {
 		//dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
 		//dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
 		//dc.setCapability(AndroidMobileCapabilityType.CHROME_OPTIONS, "");
-		dc.setCapability("build", 16);		
+		//dc.setCapability("build", 16);		
 		driver = new AndroidDriver<>(new URL(getProperty("url",cloudProperties) + "/wd/hub"), dc);
+		System.out.println("runing ");
 	}
 	
 	//this is for demo purpose 
 	@Test
 	public void webTest(){
 		
-		dc.setCapability("testName", "webTest");
+		//dc.setCapability("testName", "webTest");
 		// driver.executeScript("client:client.setDevice(\"adb:HTC One A9\")");
 		
 		  //driver.startActivity("Chrome:http://Experitest.com", "experitest.com");
 		  driver.get("http://experitest.com");		
 		  try{
-			  Thread.sleep(2000);
+			  Thread.sleep(5000);
 			  } catch(Exception ignore){}
 		  driver.context("WEBVIEW_1");
+		  
 		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='free trial']")));
 		  //driver.installApp(appPath);
 		  driver.findElement(By.xpath("//*[@text='free trial']")).click();
@@ -121,7 +123,7 @@ public class AndroidDemoTest extends BaseTest {
 	
 	@Test
 	public void nativeLoginTest(){			
-			 dc.setCapability("testName", "nativeLoginTest");
+			// dc.setCapability("testName", "nativeLoginTest");
 			 // driver.executeScript("client:client.setDevice(\"adb:HTC One A9\")");
 			  //driver.rotate(ScreenOrientation.PORTRAIT);
 			  driver.unlockDevice();
@@ -148,7 +150,7 @@ public class AndroidDemoTest extends BaseTest {
 		
 	@Test
 	public void nativeTest1(){			
-			 dc.setCapability("testName", "nativeLoginTest");
+			 // dc.setCapability("testName", "nativeLoginTest");
 			 // driver.executeScript("client:client.setDevice(\"adb:HTC One A9\")");
 			  //driver.rotate(ScreenOrientation.PORTRAIT);
 			  driver.unlockDevice();
@@ -177,5 +179,6 @@ public class AndroidDemoTest extends BaseTest {
 	public void tearDown(){
 			driver.quit();
 	}
+	
 	
 }

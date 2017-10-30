@@ -17,7 +17,10 @@ public class BaseTest {
 	public void init(String deviceQuery) throws Exception {
 		initCloudProperties();
 		dc.setCapability("deviceQuery", adhocDevice(deviceQuery));
-		dc.setCapability("reportDirectory", "reports");
+		
+		File reports = new File(System.getProperty("user.dir"), "reports");
+		reports.mkdirs();		
+		dc.setCapability("reportDirectory", reports);
 		dc.setCapability("reportFormat", "xml");
 		dc.setCapability("user", getProperty("username", cloudProperties));
 		dc.setCapability("password", getProperty("password", cloudProperties));
@@ -28,8 +31,7 @@ public class BaseTest {
 		dc.setCapability("build", 17);
 		// this is a must
 		
-		 
-		 
+				 
 		// access key
 		//System.setProperty("manager.accesskey", "mylongaccesskey");
 	
