@@ -49,6 +49,8 @@ public class AndroidDemoTest extends BaseTest {
 		driver = new AndroidDriver<>(new URL(getProperty("url",cloudProperties) + "/wd/hub"), dc);
 		System.out.println("runing : " + method.getName());
 	}
+	
+	// this is test a comments 
 			
 	@Test
 	public void LaunchApplicationTest(){	
