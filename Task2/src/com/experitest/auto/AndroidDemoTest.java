@@ -37,6 +37,7 @@ public class AndroidDemoTest extends BaseTest {
 	@Parameters("deviceQuery")
 	public void setUp(@Optional("@os='android'") String deviceQuery,Method method) throws Exception{
 		init(deviceQuery);
+		
 		dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.ExperiBank/.LoginActivity");
 		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
 		dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
@@ -168,6 +169,8 @@ public class AndroidDemoTest extends BaseTest {
 		System.out.println("tear down");
 		driver.quit();
 	}
+	
+	
 	
 	
 }

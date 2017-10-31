@@ -19,9 +19,10 @@ public class BaseTest {
 		dc.setCapability("deviceQuery", adhocDevice(deviceQuery));
 		
 		File reports = new File(System.getProperty("user.dir"), "reports");
-		reports.mkdirs();		
+		reports.mkdirs();	
+		
 		dc.setCapability("reportDirectory", reports);
-		dc.setCapability("reportFormat", "xml");
+		dc.setCapability("reportFormat", reports.getAbsolutePath() + "Test2.xml");
 		dc.setCapability("user", getProperty("username", cloudProperties));
 		dc.setCapability("password", getProperty("password", cloudProperties));
 		// In case your user is assign to a single project leave empty,
