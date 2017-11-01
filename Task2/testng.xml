@@ -4,14 +4,13 @@
   <test name="Task2TestIOS">
   	<parameter name="deviceQuery" value="@os='ios'"/>
     <classes>
-     <class name="com.experitest.auto.IOSDemoTest"/>
-     
+     <class name="com.experitest.auto.IOSDemoTest"/>     
     </classes>
   </test>
-  <test name="Task2TestAndroid">
+ <test name="Task2TestAndroid">
   	<parameter name="deviceQuery" value="@os='android'"/>
     <classes>
       <class name="com.experitest.auto.AndroidDemoTest"/>
     </classes>
-  </test><!-- Test -->
+  </test> <!-- Test -->
 </suite> <!-- Suite -->

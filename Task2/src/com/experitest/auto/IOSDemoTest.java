@@ -21,6 +21,8 @@ import com.experitest.manager.testng.ManagerTestNGListener;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
  
 import java.io.File;
@@ -40,27 +42,39 @@ public class IOSDemoTest extends BaseTest {
 		//dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.ExperiBank");
 		dc.setCapability("build", 16);
 		driver = new IOSDriver<>(new URL(getProperty("url",cloudProperties) + "/wd/hub"), dc);
+		System.out.println("runing : " + method.getName());
 	}
 
 	@Test
-	public void test() {
+	public void getCustomersTest() {
 		
      driver.get("http://experitest.com/customers/");		
 		
 		List<IOSElement> customers = driver.findElements(By.xpath("//*[@id='div']/img"));	       
 		System.out.println("Total Number of  Customers = " + customers.size());
 		String companyName;
-		int i = 0;
+	
 		
 		for (WebElement webElement : customers) {
-			i++;
-			if (i > 20){
-				break;
-			}			
-			companyName = webElement.getAttribute("class");
+		companyName = webElement.getAttribute("class");
 			System.out.println("Customer Name:  " + companyName);
 		}
 		
+	}
+	
+	@Test
+	public void webLoginApplicationTest() {
+		  driver.get("http://experitest.com");
+		  driver.context("WEBVIEW_1");
+		 
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")));
+		  driver.findElement(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Support']")));
+		  driver.findElement(By.xpath("//*[@text='Support']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Online Guide']")));
+		  driver.findElement(By.xpath("//*[@text='Online Guide']")).click();
+		 
+
 	}
 
 	@AfterMethod

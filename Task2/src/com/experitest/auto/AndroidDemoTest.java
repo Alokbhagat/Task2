@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
  
 
 public class AndroidDemoTest extends BaseTest {
+	
 	protected AndroidDriver<AndroidElement> driver = null;
 	
 	@BeforeMethod
@@ -50,25 +51,15 @@ public class AndroidDemoTest extends BaseTest {
 		System.out.println("runing : " + method.getName());
 	}
 	
-	// this is test a comments 
-			
 	@Test
 	public void LaunchApplicationTest(){	
 		
-		 //driver.startActivity("cloud:com.experitest.ExperiBank", ".LoginActivity");
-
-				
-		  driver.context("NATIVE_APP");
-		 
-		  try{
-			  Thread.sleep(2000);
-			  } catch(Exception ignore){}
-		 // driver.startActivity("cloud:com.experitest.ExperiBank", ".LoginActivity");
-		  driver.context("NATIVE_APP");
+		
+		  driver.context("NATIVE_APP");		
 		  driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
+		  new WebDriverWait(driver, 100).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
 		  driver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
 		  driver.findElement(By.xpath("//*[@id='loginButton']")).click();
-
 		  
 	 }
 	
@@ -78,14 +69,10 @@ public class AndroidDemoTest extends BaseTest {
 		 //driver.startActivity("cloud:com.experitest.ExperiBank", ".LoginActivity");
 
 		
-		  driver.context("NATIVE_APP");
-		 
-		  try{
-			  Thread.sleep(2000);
-			  } catch(Exception ignore){}
-		 // new WebDriverWait(driver, 100).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='usernameTextField']")));
+		  driver.context("NATIVE_APP");		
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='usernameTextField']")));
 		  driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
-		 // new WebDriverWait(driver, 100).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
 		  driver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
 		  driver.findElement(By.xpath("//*[@id='loginButton']")).click();
 		  
@@ -94,14 +81,11 @@ public class AndroidDemoTest extends BaseTest {
 	@Test
 	public void MakePayMentTest(){	
 		 		
-		  driver.context("NATIVE_APP");
-		
-		  try{
-			  Thread.sleep(2000);
-			  } catch(Exception ignore){}
-		 // driver.startActivity("cloud:com.experitest.ExperiBank", ".LoginActivity");
-		  driver.context("NATIVE_APP");
-		  driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
+
+		  driver.context("NATIVE_APP");	
+		  
+		  driver.findElement(By.xpath("//*[@text='Username']")).sendKeys("company");
+		 // new WebDriverWait(driver, 100).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
 		  driver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
 		  driver.findElement(By.xpath("//*[@id='loginButton']")).click();
 		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='makePaymentButton']")));
@@ -117,7 +101,6 @@ public class AndroidDemoTest extends BaseTest {
 		  driver.findElement(By.xpath("//*[@id='countryList']//*[4]")).click();
  		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='sendPaymentButton']")));
 		  driver.findElement(By.xpath("//*[@id='sendPaymentButton']")).click();
-		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='alertTitle']")));
 		  driver.findElement(By.xpath("//*[@id='button1' and @text='Yes']")).click();
 		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='logoutButton']")));
 		  driver.findElement(By.xpath("//*[@id='logoutButton']")).click();
@@ -125,46 +108,39 @@ public class AndroidDemoTest extends BaseTest {
 	 }
 	
 	@Test
-	public void LogoutApplicationTest(){	
+	public void  WebApplicationTest(){	
 		 //driver.startActivity("cloud:com.experitest.ExperiBank", ".LoginActivity");
+	
 
-		
-		  driver.context("NATIVE_APP");
-		
-		  try{
-			  Thread.sleep(2000);
-			  } catch(Exception ignore){}
-		 // new WebDriverWait(driver, 100).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='usernameTextField']")));
-		  driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
-		 // new WebDriverWait(driver, 100).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
-		  driver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
-		  driver.findElement(By.xpath("//*[@id='loginButton']")).click();
-		  new WebDriverWait(driver, 60).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='logoutButton']")));
-		  driver.findElement(By.xpath("//*[@id='logoutButton']")).click();
+		 driver.get("http://experitest.com");
+		 driver.context("WEBVIEW_1");
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")));
+		  driver.findElement(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Support']")));
+		  driver.findElement(By.xpath("//*[@text='Support']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Online Guide']")));
+		  driver.findElement(By.xpath("//*[@text='Online Guide']")).click();
+		  driver.pressKeyCode(AndroidKeyCode.HOME);
 		  
 	 }		  
 	
+	
+	
 	@Test
-	public void WebApplication(){
-		
-		driver.get("http://experitest.com/customers/");		
-		
-		List<AndroidElement> customers = driver.findElements(By.xpath("//*[@id='div']/img"));	       
-		System.out.println("Total Number of  Customers = " + customers.size());
-		String companyName;
-        int i = 0;
-		
-		for (WebElement webElement : customers) {
-			i++;
-			if (i > 20){
-				break;
-			}			
-			companyName = webElement.getAttribute("class");
-			System.out.println("Customer Name:  " + companyName);
-		}
-		
-		
-	}
+	public void  WebApplication2Test(){	
+		 //driver.startActivity("cloud:com.experitest.ExperiBank", ".LoginActivity");
+	 	 driver.get("http://experitest.com");
+		 driver.context("WEBVIEW_1");
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='LOGIN']")));
+		  driver.findElement(By.xpath("//*[@text='LOGIN']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Sign up        ']")));
+		  driver.findElement(By.xpath("//*[@text='Sign up        ']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Download']")));
+		  driver.findElement(By.xpath("//*[@text='Download']")).click();
+		  driver.pressKeyCode(AndroidKeyCode.HOME);
+
+		  
+	 }
 
 	@AfterMethod
 	public void tearDown(){

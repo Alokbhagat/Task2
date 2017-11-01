@@ -12,24 +12,27 @@ import com.experitest.manager.api.ManagerPublisher;
 
 public class BaseTest {
 
+	public static String buildId = System.getenv("BUILD_NUMBER");
+	public static String accessKey =System.getenv("access.key");
+	public static String deviceQuery=System.getenv("device.query");
+			
+	
+	
 	protected DesiredCapabilities dc = new DesiredCapabilities();
 	protected Properties cloudProperties = new Properties();
 	public void init(String deviceQuery) throws Exception {
 		initCloudProperties();
-		dc.setCapability("deviceQuery", adhocDevice(deviceQuery));
-		
-		File reports = new File(System.getProperty("user.dir"), "reports");
-		reports.mkdirs();	
-		
-		dc.setCapability("reportDirectory", reports);
-		dc.setCapability("reportFormat", reports.getAbsolutePath() + "Test2.xml");
+		dc.setCapability("deviceQuery", adhocDevice(deviceQuery));		
+					
+		dc.setCapability("reportDirectory", "reports");
+	
 		dc.setCapability("user", getProperty("username", cloudProperties));
 		dc.setCapability("password", getProperty("password", cloudProperties));
 		// In case your user is assign to a single project leave empty,
 		// otherwise please specify the project name
 		dc.setCapability("project", getProperty("project", cloudProperties));
 		dc.setCapability("stream", "AlokTask2");
-		dc.setCapability("build", 17);
+		dc.setCapability("build", buildId);
 		// this is a must
 		
 				 
@@ -38,10 +41,7 @@ public class BaseTest {
 	
 	}
 
-	public void testFunction(){
-		System.out.println("This again test to see Sync betwen jenkin and eclipse");
-		
-	}
+	
 	
 	
 	protected String getProperty(String property, Properties props) throws FileNotFoundException, IOException {
