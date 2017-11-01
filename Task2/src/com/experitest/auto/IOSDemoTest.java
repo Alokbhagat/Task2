@@ -53,10 +53,15 @@ public class IOSDemoTest extends BaseTest {
 		List<IOSElement> customers = driver.findElements(By.xpath("//*[@id='div']/img"));	       
 		System.out.println("Total Number of  Customers = " + customers.size());
 		String companyName;
-	
+	      int i = 0;
 		
 		for (WebElement webElement : customers) {
-		companyName = webElement.getAttribute("class");
+			i++;
+			if(i>10){
+				
+				break;
+			}
+		     companyName = webElement.getAttribute("class");
 			System.out.println("Customer Name:  " + companyName);
 		}
 		

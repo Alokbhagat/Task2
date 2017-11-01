@@ -33,9 +33,8 @@ public class BaseTest {
 		dc.setCapability("project", getProperty("project", cloudProperties));
 		dc.setCapability("stream", "AlokTask2");
 		dc.setCapability("build", buildId);
-		// this is a must
-		
-				 
+	
+		System.out.println("Build Number : " + buildId);
 		// access key
 		//System.setProperty("manager.accesskey", "mylongaccesskey");
 	

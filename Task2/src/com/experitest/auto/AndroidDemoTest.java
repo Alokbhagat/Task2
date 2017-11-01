@@ -40,7 +40,7 @@ public class AndroidDemoTest extends BaseTest {
 		init(deviceQuery);
 		
 		dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.ExperiBank/.LoginActivity");
-		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
+		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "cloud:com.experitest.ExperiBank");
 		dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
 		dc.setCapability(MobileCapabilityType.ORIENTATION, "PORTRAIT");
 				
