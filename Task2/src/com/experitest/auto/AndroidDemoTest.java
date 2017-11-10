@@ -38,28 +38,41 @@ public class AndroidDemoTest extends BaseTest {
 	@Parameters("deviceQuery")
 	public void setUp(@Optional("@os='android'") String deviceQuery,Method method) throws Exception{
 		init(deviceQuery);
-		
+		dc.setCapability(MobileCapabilityType.NO_RESET, true);
+		dc.setCapability("instrumentApp", true);
 		dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.ExperiBank/.LoginActivity");
-		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "cloud:com.experitest.ExperiBank");
+		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
 		dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
 		dc.setCapability(MobileCapabilityType.ORIENTATION, "PORTRAIT");
-				
-		dc.setCapability("TestName", method.getName());
-        
-		//dc.setCapability("build", 16);		
+		dc.setCapability("testName", "AndroidDemoTest");
 		driver = new AndroidDriver<>(new URL(getProperty("url",cloudProperties) + "/wd/hub"), dc);
+		
+		
 		System.out.println("runing : " + method.getName());
+		if(driver.isAppInstalled("com.experitest.ExperiBank") != true){
+			
+			driver.installApp("cloud:com.experitest.ExperiBank/.LoginActivity");
+		}
+		
 	}
 	
+	
+	// test comment 
 	@Test
-	public void LaunchApplicationTest(){	
+	public void LaunchApplicationTest(){			 
 		
 		
-		  driver.context("NATIVE_APP");		
+		
+		  driver.context("NATIVE_APP");
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='usernameTextField']")));
+	 
 		  driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
-		  new WebDriverWait(driver, 100).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
+			 
 		  driver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='loginButton']")));
 		  driver.findElement(By.xpath("//*[@id='loginButton']")).click();
+		  
 		  
 	 }
 	
@@ -67,18 +80,36 @@ public class AndroidDemoTest extends BaseTest {
 	@Test
 	public void LoginApplicationTest(){	
 		 //driver.startActivity("cloud:com.experitest.ExperiBank", ".LoginActivity");
-
 		
-		  driver.context("NATIVE_APP");		
-		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='usernameTextField']")));
-		  driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
-		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
+		  driver.context("NATIVE_APP");
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='usernameTextField']")));
+	 	  driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
+	 	  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='passwordTextField']")));
 		  driver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='loginButton']")));
 		  driver.findElement(By.xpath("//*[@id='loginButton']")).click();
+		  
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='makePaymentButton']")));
+		  driver.findElement(By.xpath("//*[@text='Make Payment']")).click();
+		  
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='phoneTextField']")));
+		  driver.findElement(By.xpath("//*[@id='phoneTextField']")).sendKeys("9923123450");
+		  driver.findElement(By.xpath("//*[@id='nameTextField']")).sendKeys("Alok");
+		  driver.findElement(By.xpath("//*[@id='amountTextField']")).sendKeys("20");
+		  driver.findElement(By.xpath("//*[@id='countryButton']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='rowTextView']")));
+		  int height = driver.findElement(By.xpath("//*[@id='countryList']")).getSize().getHeight();
+		  driver.findElement(By.xpath("//*[@id='countryList']//*[4]")).click();
+ 		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='sendPaymentButton']")));
+		  driver.findElement(By.xpath("//*[@id='sendPaymentButton']")).click();
+		  driver.findElement(By.xpath("//*[@id='button1' and @text='Yes']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='logoutButton']")));
+		  driver.findElement(By.xpath("//*[@id='logoutButton']")).click();
+
 		  
 	 }	
 	
-	@Test
+	/*@Test
 	public void MakePayMentTest(){	
 		 		
 
@@ -140,7 +171,7 @@ public class AndroidDemoTest extends BaseTest {
 		  driver.pressKeyCode(AndroidKeyCode.HOME);
 
 		  
-	 }
+	 }*/
 
 	@AfterMethod
 	public void tearDown(){

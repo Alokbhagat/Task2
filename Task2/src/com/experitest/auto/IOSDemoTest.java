@@ -13,6 +13,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.IOSMobileCapabilityType;
+import io.appium.java_client.remote.MobileBrowserType;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 import com.experitest.manager.api.ManagerPublisher;
@@ -33,23 +34,24 @@ public class IOSDemoTest extends BaseTest {
 	protected IOSDriver<IOSElement> driver = null;
 
 	@BeforeMethod
-	@Parameters("deviceQuery")
+	@Parameters("iosdeviceQuery")
 	public void setUp(@Optional("@os='ios'") String deviceQuery,Method method) throws Exception {
 		init(deviceQuery);
 		
 		// Init application / device capabilities
 		//dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.ExperiBank");
 		//dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.ExperiBank");
-		dc.setCapability("build", 16);
+		dc.setBrowserName(MobileBrowserType.SAFARI);
 		driver = new IOSDriver<>(new URL(getProperty("url",cloudProperties) + "/wd/hub"), dc);
 		System.out.println("runing : " + method.getName());
+		System.out.println("runing : " + deviceQuery);
 	}
 
 	@Test
 	public void getCustomersTest() {
 		
-     driver.get("http://experitest.com/customers/");		
-		
+        driver.get("http://experitest.com/customers/");		
+        driver.context("WEBVIEW_1");
 		List<IOSElement> customers = driver.findElements(By.xpath("//*[@id='div']/img"));	       
 		System.out.println("Total Number of  Customers = " + customers.size());
 		String companyName;
@@ -57,28 +59,32 @@ public class IOSDemoTest extends BaseTest {
 		
 		for (WebElement webElement : customers) {
 			i++;
-			if(i>10){
+			 if(i > 10){
 				
 				break;
 			}
-		     companyName = webElement.getAttribute("class");
-			System.out.println("Customer Name:  " + companyName);
+		     companyName = webElement.getAttribute("src");		     
+		     String[] words=companyName.split("/");		     
+			System.out.println("Customer Name:  " + words[6]);
 		}
 		
 	}
 	
 	@Test
 	public void webLoginApplicationTest() {
-		  driver.get("http://experitest.com");
+		
+		  driver.get("experitest.com");
+		  
 		  driver.context("WEBVIEW_1");
-		 
+		  try{Thread.sleep(4000);} catch(Exception ignore){}
+
 		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")));
 		  driver.findElement(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")).click();
-		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Support']")));
-		  driver.findElement(By.xpath("//*[@text='Support']")).click();
+		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Capabilities']")));
+		  driver.findElement(By.xpath("//*[@text='Support' and @css=concat('A[href=', \"'\", '#', \"'\", ']')]")).click();
 		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Online Guide']")));
-		  driver.findElement(By.xpath("//*[@text='Online Guide']")).click();
-		 
+		  driver.findElement(By.xpath("//*[@text='Online Guide' and @css=concat('A[href=', \"'\", '#', \"'\", ']')]")).click();
+
 
 	}
 

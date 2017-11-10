@@ -10,6 +10,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.experitest.manager.api.ManagerPublisher;
 
+import io.appium.java_client.remote.MobileCapabilityType;
+
 public class BaseTest {
 
 	public static String buildId = System.getenv("BUILD_NUMBER");
@@ -33,14 +35,27 @@ public class BaseTest {
 		dc.setCapability("project", getProperty("project", cloudProperties));
 		dc.setCapability("stream", "AlokTask2");
 		dc.setCapability("build", buildId);
-	
+		
+	/*	String className = null;
+		String cname = className.split("\\.")[className.split("\\.").length - 1];
+		String testName = null;
+		dc.setCapability("testName", cname + "." + testName);
+		dc.setCapability("build", String.valueOf(getBuild()));
+		dc.setCapability(MobileCapabilityType.ORIENTATION, "portrait");
+	*/
 		System.out.println("Build Number : " + buildId);
+		System.out.println("Device Query :" + deviceQuery);
 		// access key
 		//System.setProperty("manager.accesskey", "mylongaccesskey");
 	
 	}
 
-	
+	public synchronized static String getBuild() {
+		if(buildId == null) {
+			buildId = "-1";
+		}
+		return buildId;
+	}
 	
 	
 	protected String getProperty(String property, Properties props) throws FileNotFoundException, IOException {
