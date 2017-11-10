@@ -33,8 +33,9 @@ public class BaseTest {
 		// In case your user is assign to a single project leave empty,
 		// otherwise please specify the project name
 		dc.setCapability("project", getProperty("project", cloudProperties));
-		dc.setCapability("stream", "AlokTask2");
+		dc.setCapability("stream", "ReporterTask_alok");
 		dc.setCapability("build", buildId);
+		System.out.println("Build Number : " + buildId);
 		
 	/*	String className = null;
 		String cname = className.split("\\.")[className.split("\\.").length - 1];
@@ -43,7 +44,7 @@ public class BaseTest {
 		dc.setCapability("build", String.valueOf(getBuild()));
 		dc.setCapability(MobileCapabilityType.ORIENTATION, "portrait");
 	*/
-		//System.out.println("Build Number : " + buildId);
+		System.out.println("Build Number : " + buildId);
 		//System.out.println("Device Query :" + deviceQuery);
 		// access key
 		//System.setProperty("manager.accesskey", "mylongaccesskey");

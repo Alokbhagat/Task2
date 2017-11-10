@@ -44,7 +44,8 @@ public class androidDemoTest2 extends BaseTest {
 		dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
 		dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
 		dc.setCapability(MobileCapabilityType.ORIENTATION, "PORTRAIT");
-		dc.setCapability("testName", "AndroidDemoTest");
+		dc.setCapability("testName", method.getName());
+		dc.setCapability("project", getProperty("project",cloudProperties));
 		driver = new AndroidDriver<>(new URL(getProperty("url",cloudProperties) + "/wd/hub"), dc);
 		System.out.println(driver.isAppInstalled("com.experitest.ExperiBank"));
 		if(driver.isAppInstalled("com.experitest.ExperiBank") != true){
@@ -173,7 +174,7 @@ public class androidDemoTest2 extends BaseTest {
 
 	@AfterMethod
 	public void tearDown(){
-		System.out.println("tear down");
+		
 		driver.quit();
 	}
 	
