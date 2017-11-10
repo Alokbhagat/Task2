@@ -78,7 +78,7 @@ public class IOSDemoTest extends BaseTest {
 		  driver.context("WEBVIEW_1");
 		  try{Thread.sleep(4000);} catch(Exception ignore){}
 
-		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")));
+		  new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")));
 		  driver.findElement(By.xpath("//*[@nodeName='BUTTON' and @css='BUTTON.navbar-toggle']")).click();
 		  new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Capabilities']")));
 		  driver.findElement(By.xpath("//*[@text='Support' and @css=concat('A[href=', \"'\", '#', \"'\", ']')]")).click();
