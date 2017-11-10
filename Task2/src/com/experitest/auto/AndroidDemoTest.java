@@ -46,8 +46,6 @@ public class AndroidDemoTest extends BaseTest {
 		dc.setCapability(MobileCapabilityType.ORIENTATION, "PORTRAIT");
 		dc.setCapability("testName", "AndroidDemoTest");
 		driver = new AndroidDriver<>(new URL(getProperty("url",cloudProperties) + "/wd/hub"), dc);
-		
-		
 		System.out.println("runing : " + method.getName());
 		if(driver.isAppInstalled("com.experitest.ExperiBank") != true){
 			

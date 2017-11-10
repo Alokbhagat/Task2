@@ -43,8 +43,8 @@ public class BaseTest {
 		dc.setCapability("build", String.valueOf(getBuild()));
 		dc.setCapability(MobileCapabilityType.ORIENTATION, "portrait");
 	*/
-		System.out.println("Build Number : " + buildId);
-		System.out.println("Device Query :" + deviceQuery);
+		//System.out.println("Build Number : " + buildId);
+		//System.out.println("Device Query :" + deviceQuery);
 		// access key
 		//System.setProperty("manager.accesskey", "mylongaccesskey");
 	
