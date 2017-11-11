@@ -5,50 +5,38 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.experitest.manager.api.ManagerPublisher;
 
-import io.appium.java_client.remote.MobileCapabilityType;
-
+//This is base class - device configuration can be done in this 
 public class BaseTest {
 
+	// Getting all properties enviornment variables from jenkins 
 	public static String buildId = System.getenv("BUILD_NUMBER");
 	public static String accessKey =System.getenv("access.key");
 	public static String deviceQuery=System.getenv("device.query");
 			
 	
-	
+	// setting up the capabilities - this are general capabilities 
 	protected DesiredCapabilities dc = new DesiredCapabilities();
 	protected Properties cloudProperties = new Properties();
 	public void init(String deviceQuery) throws Exception {
 		initCloudProperties();
-		dc.setCapability("deviceQuery", adhocDevice(deviceQuery));		
-					
-		dc.setCapability("reportDirectory", "reports");
-	
+		
+		// getting device from testNg param
+		dc.setCapability("deviceQuery", adhocDevice(deviceQuery));							
+		dc.setCapability("reportDirectory", "reports");	
+		//getting properties from property file 
 		dc.setCapability("user", getProperty("username", cloudProperties));
 		dc.setCapability("password", getProperty("password", cloudProperties));
 		// In case your user is assign to a single project leave empty,
 		// otherwise please specify the project name
 		dc.setCapability("project", getProperty("project", cloudProperties));
+		//this is reporter stream name
 		dc.setCapability("stream", "ReporterTask_alok");
-		dc.setCapability("build", buildId);
-		System.out.println("Build Number : " + buildId);
+		//getting the build id from jenkins 		
+		dc.setCapability("build", getBuild());
 		
-	/*	String className = null;
-		String cname = className.split("\\.")[className.split("\\.").length - 1];
-		String testName = null;
-		dc.setCapability("testName", cname + "." + testName);
-		dc.setCapability("build", String.valueOf(getBuild()));
-		dc.setCapability(MobileCapabilityType.ORIENTATION, "portrait");
-	*/
-		System.out.println("Build Number : " + buildId);
-		//System.out.println("Device Query :" + deviceQuery);
-		// access key
-		//System.setProperty("manager.accesskey", "mylongaccesskey");
-	
 	}
 
 	public synchronized static String getBuild() {
@@ -58,7 +46,7 @@ public class BaseTest {
 		return buildId;
 	}
 	
-	
+	//getting the properties from cloud.properties file 
 	protected String getProperty(String property, Properties props) throws FileNotFoundException, IOException {
 		if (System.getProperty(property) != null) {
 			return System.getProperty(property);
@@ -75,7 +63,7 @@ public class BaseTest {
 		cloudProperties.load(fr);
 		fr.close();
 	}
-
+//getting jar location to get devices 
 	private static synchronized String adhocDevice(String deviceQuery) {
 		try {
 			File jarLocation = (System.getProperty("os.name").toUpperCase().contains("WIN"))
