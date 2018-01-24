@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<!-- 
+Suite information - running in parallel with class - you can use test cases or methods in this 
+you can change thred - count also - now it will use 4 threads 
+Suite -->
 <suite name="Suite" parallel="classes" thread-count="4">
   <test name="Task2TestAndroid" >
+  <!-- 
+  you can pass parameters from this setting - to access this param can use @Parameters("deviceQuery") or 
+   @Parameters("iosdeviceQuery") - device query can be specific also value="@os='ios' and @device='iPhone7'"
+   -->
   	<parameter name="deviceQuery" value="@os='android'"/>
   	<parameter name="iosdeviceQuery" value="@os='ios'"/>
     <classes>
