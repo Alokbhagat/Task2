@@ -44,7 +44,7 @@ public class AndroidDemoTest extends BaseTest {
 			}		
 	}	
 	
-	// Test case to launch the application and login into application
+	// this is a nother test for checking 
 	@Test
 	public void launchApplicationTest(){
 		  driver.context("NATIVE_APP");
