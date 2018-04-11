@@ -46,6 +46,7 @@ public class AndroidDemoTest extends BaseTest {
 	
 	
 	// this is for another test checking 
+	// for test in git 
 	@Test
 	public void launchApplicationTest(){
 		  driver.context("NATIVE_APP");
