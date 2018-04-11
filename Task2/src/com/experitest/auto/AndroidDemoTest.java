@@ -44,6 +44,10 @@ public class AndroidDemoTest extends BaseTest {
 			}		
 	}	
 	
+	public void getTEst(){
+		
+		System.out.println("Last few hours ");
+	}
 	
 	// this is for another test checking 
 	// for test in git 
